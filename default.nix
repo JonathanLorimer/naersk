@@ -45,7 +45,7 @@ let
             pname = "${config.packageName}-deps";
             src = libb.dummySrc {
               inherit cargoconfig;
-              inherit (config) cargolock cargotomls copySources copySourcesFrom;
+              inherit (config) cargolock cargotomls copySources copySourcesFrom tomlEntitiesToRemove;
             };
             inherit (config) userAttrs;
             # TODO: custom cargoTestCommands should not be needed here

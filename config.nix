@@ -43,6 +43,7 @@ let
       allowFun attrs0 "cargoBuildOptions" [ "$cargo_release" ''-j "$NIX_BUILD_CORES"'' "--message-format=$cargo_message_format" ];
 
 
+    tomlEntitiesToRemove = attrs0.tomlEntitiesToRemove or [ "bin" "example" "lib" "test" "bench" "default-run" ];
     # When `true`, rustc remaps the (`/nix/store`) source paths to `/sources`
     # to reduce the number of dependencies in the closure.
     remapPathPrefix = attrs0.remapPathPrefix or true;
@@ -349,13 +350,13 @@ let
     toplevelCargotoml = readTOML (root + "/Cargo.toml");
 
     # The cargo lock
-    cargolock = 
+    cargolock =
       let
         cargolock-file = root + "/Cargo.lock";
       in
       if builtins.pathExists cargolock-file then
         readTOML (cargolock-file)
-      else 
+      else
         throw "Naersk requires Cargo.lock to be available in root. Check that it is not in .gitignore and stage it when using git to filter sources (which flakes does)";
 
     packageName =

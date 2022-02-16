@@ -165,6 +165,7 @@ rec
     , cargolock   # attrset
     , copySources # list of paths that should be copied to the output
     , copySourcesFrom # path from which to copy ${copySources}
+    , tomlEntitiesToRemove
     }:
       let
         config = writeText "config" cargoconfig;
@@ -174,7 +175,7 @@ rec
             attrs =
               # Since we pretend everything is a lib, we remove any mentions
               # of binaries
-              removeAttrs cargotoml [ "bin" "example" "lib" "test" "bench" "default-run" ]
+              removeAttrs cargotoml tomlEntitiesToRemove
                 // lib.optionalAttrs (builtins.hasAttr "package" cargotoml) ({ package = removeAttrs cargotoml.package [ "default-run" ] ; })
                 ;
           in
