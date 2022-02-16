@@ -42,8 +42,6 @@ let
     cargoBuildOptions =
       allowFun attrs0 "cargoBuildOptions" [ "$cargo_release" ''-j "$NIX_BUILD_CORES"'' "--message-format=$cargo_message_format" ];
 
-
-    tomlEntitiesToRemove = attrs0.tomlEntitiesToRemove or [ "bin" "example" "lib" "test" "bench" "default-run" ];
     # When `true`, rustc remaps the (`/nix/store`) source paths to `/sources`
     # to reduce the number of dependencies in the closure.
     remapPathPrefix = attrs0.remapPathPrefix or true;

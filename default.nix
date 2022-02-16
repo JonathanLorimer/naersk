@@ -45,7 +45,8 @@ let
             pname = "${config.packageName}-deps";
             src = libb.dummySrc {
               inherit cargoconfig;
-              inherit (config) cargolock cargotomls copySources copySourcesFrom tomlEntitiesToRemove;
+              inherit (config) cargolock cargotomls copySources copySourcesFrom;
+              tomlEntitiesToRemove = arg.tomlEntitiesToRemove or [ "bin" "example" "lib" "test" "bench" "default-run" ];
             };
             inherit (config) userAttrs;
             # TODO: custom cargoTestCommands should not be needed here
